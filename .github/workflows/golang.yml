@@ -1,0 +1,26 @@
+name: Build
+on: [push, pull_request]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go 1.13
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.13
+        id: go
+
+      - uses: actions/checkout@v1
+
+      - name: Build
+        run: |
+          go get -d -v
+          go build -v .
+      - name: Celebrate
+        run: |
+          echo: Yay!!! We are done!
+      - name: Proto compile golang
+        uses: kubitre/proto_action@34c324b520f852d2cd29e88e00352d3c6443f89d
+        with:
+         dir_with_proto_name: proto_files
